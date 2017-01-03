@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="GBK"?>
+<project name="WeChatPbs" basedir="." default="compile">
+	<property name="src" value="src" />
+	<property name="classes" value="classes" />
+	<property name="dist" value="dist" />
+	<path id="sourcepath">
+		<dirset dir="${src}">
+		</dirset>
+	</path>
+	<path id="classpath">
+		<pathelement path="${classes}"/>
+	</path>
+
+	<!-- 定义help target，用于输出该生成文件的帮助信息 -->
+	<target name="help" description="打印帮助信息">
+		<echo>help - 打印帮助信息</echo>
+		<echo>compile - 编译Java源文件</echo>
+		<echo>run - 运行程序</echo>
+		<echo>dist - 打包JAR包</echo>
+		<echo>clean - 清除所有编译生成的文件</echo>
+	</target>
+
+	<target name="compile" depends="clean" description="编译程序">
+		<mkdir dir="${classes}"/>
+		<javac destdir="${classes}" debug="true" includeantruntime="yes"
+			deprecation="false" optimize="false" failonerror="true">
+			<!-- 指定需要编译的Java文件所在的位置 -->
+			<src refid="sourcepath"/>
+			<classpath refid="classpath"/>
+		</javac>
+	</target>
+	
+	<target name="run" depends="compile" description="运行程序">
+		<!-- 运行WeChatPbs类,其中fork指定启动另一个JVM来执行java命令 -->
+		<java classname="WeChatPbs" fork="true">
+			<classpath refid="classpath"/>
+		</java>
+	</target>
+	
+	<target name="dist" depends="compile" description="打包JAR文件">
+		<!-- 创建dest属性所代表的文件夹 -->
+		<mkdir dir="${dist}"/>
+		<!-- 指定将classes属性所代表的文件夹下的所有
+			*.classes文件都打包到app.jar文件中 -->
+		<jar destfile="${dist}/WeChatPbs.jar" basedir="${classes}"
+			includes="**/*.class">
+			<!-- 为JAR包的清单文件添加属性 -->
+			<manifest>
+				<attribute name="Main-Class" value="WeChatPbs"/>
+			</manifest>
+		</jar>
+	</target>
+	
+	<target name="clean" description="删除程序">
+		<!-- 删除两个目录，目录下的文件也一并删除 -->
+		<delete dir="${classes}"/>
+		<delete dir="${dist}"/>
+	</target>
+</project>
