@@ -104,13 +104,6 @@ public class DbApi
 		return list;
 	}
 
-	public static List<Object[]> Index(String sql, Object... args)
-		throws Exception
-	{
-		return IndexPage(sql, 1, Integer.MAX_VALUE, args);
-	}
-
-
 	public static boolean Insert(String sql, Object... args)
 		throws Exception
 	{

@@ -36,16 +36,16 @@ create table friend_table
 	friend_id int auto_increment primary key,
 	contact_tel varchar(16) not null,
 	contact_name varchar(16) not null,
-	friend_tel varchar(16) not null,
-	friend_name varchar(16) not null,
+	telnum varchar(16) not null,
+	name varchar(16) not null,
 	gender_id int default 0,
 	remark varchar(64),
 	constraint friends_fk1 foreign key(contact_tel) references contact_table(telnum) on delete cascade,
 	constraint friends_fk2 foreign key(contact_name) references contact_table(name) on delete cascade,
-	unique (contact_tel,friend_tel),
-	unique (contact_tel, friend_name),
-	unique (contact_name, friend_tel),
-	unique (contact_name, friend_name)
+	unique (contact_tel,telnum),
+	unique (contact_tel, name),
+	unique (contact_name, telnum),
+	unique (contact_name, name)
 );
 
 create table level_table
@@ -84,15 +84,15 @@ insert into gender_table values (2, 'Female');
 
 insert into contact_table values (null, '00000000000', 'pbsadmin', '123456', 1, 'Admin info', 0);
 
-insert into type_table values (0, 'CONTACT');
-insert into type_table values (1, 'FRIEND');
-insert into type_table values (2, 'LOG');
-insert into type_table values (3, 'CONSOLE');
-insert into type_table values (4, 'WECHATPBS');
-insert into type_table values (5, 'TEST');
+insert into type_table values (1, 'SYSTEM');
+insert into type_table values (2, 'CONTACT');
+insert into type_table values (3, 'FRIEND');
+insert into type_table values (4, 'LOG');
+insert into type_table values (5, 'CONSOLE');
+insert into type_table values (6, 'WECHATPBS');
+insert into type_table values (7, 'TEST');
 
-insert into level_table values (0, 'ERROR');
-insert into level_table values (1, 'CRIT');
-insert into level_table values (2, 'DEBUG');
-insert into level_table values (3, 'ALERT');
-insert into level_table values (4, 'WARN');
+insert into level_table values (1, 'ERROR');
+insert into level_table values (2, 'CRIT');
+insert into level_table values (3, 'WARN');
+insert into level_table values (4, 'DEBUG');

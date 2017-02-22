@@ -26,9 +26,7 @@ public class DbDao
 		
 		try
 		(
-			FileInputSt
-			
-			ream fis = new FileInputStream("WeChatPbs_DB.ini");
+			FileInputStream fis = new FileInputStream("WeChatPbs_DB.ini");
 		)
 		{
 			Properties props = new Properties();
@@ -68,6 +66,13 @@ public class DbDao
 	public boolean ExecuteStmt(String sql, Object... args)
 		throws Exception
 	{
+		System.out.println(sql);
+		for(Object obj : args)
+		{
+			System.out.print(obj + " ");
+		}
+		System.out.println();
+		
 		pstmt = conn.prepareStatement(sql);
 		
 		for(int i=0; i<args.length; ++i)
@@ -86,6 +91,13 @@ public class DbDao
 	public ResultSet QueryStmt(String sql, Object... args)
 		throws Exception
 	{
+		System.out.println(sql);
+		for(Object obj : args)
+		{
+			System.out.print(obj + " ");
+		}
+		System.out.println();
+		
 		pstmt = conn.prepareStatement(sql);
 		
 		for(int i=0; i<args.length; ++i)
